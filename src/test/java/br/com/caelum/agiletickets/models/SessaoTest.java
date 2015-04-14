@@ -1,5 +1,7 @@
 package br.com.caelum.agiletickets.models;
 
+import javax.validation.constraints.AssertTrue;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,6 +13,13 @@ public class SessaoTest {
         sessao.setTotalIngressos(2);
 
         Assert.assertTrue(sessao.podeReservar(1));
+	}
+	
+	@Test
+	public void deveVender2IngressosSeHaVagas(){
+		Sessao sessao = new Sessao();
+		sessao.setTotalIngressos(2);
+		Assert.assertTrue(sessao.podeReservar(2));
 	}
 	
 	@Test
