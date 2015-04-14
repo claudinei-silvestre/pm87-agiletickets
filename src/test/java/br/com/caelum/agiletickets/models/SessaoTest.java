@@ -14,7 +14,7 @@ public class SessaoTest {
 	}
 	
 	@Test
-	public void deveVenderIngressosSeONumeroDeVagasSobrandoEIgualAQuantidadeDeIngressosVendido(){
+	public void deveVenderIngressosSeONumeroDeVagasSobrandoEIgualAQuantidadeDeIngressosVendidos(){
 		Sessao sessao = new Sessao();
 		sessao.setTotalIngressos(2);
 		Assert.assertTrue(sessao.podeReservar(2));
