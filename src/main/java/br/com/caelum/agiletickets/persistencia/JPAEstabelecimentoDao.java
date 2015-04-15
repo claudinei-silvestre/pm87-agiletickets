@@ -11,7 +11,7 @@ import br.com.caelum.agiletickets.models.Estabelecimento;
 public class JPAEstabelecimentoDao implements DiretorioDeEstabelecimentos {
 
 	private EntityManager manager;
-	
+
 	@Inject
 	public JPAEstabelecimentoDao(EntityManager manager) {
 		this.manager = manager;

@@ -14,7 +14,7 @@ public class JPAEspetaculoDao implements Agenda {
 
 	private EntityManager manager;
 	private Relogio relogio;
-	
+
 	@Inject
 	public JPAEspetaculoDao(EntityManager manager, Relogio relogio) {
 		this.manager = manager;
