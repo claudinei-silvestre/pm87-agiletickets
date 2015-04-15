@@ -3,9 +3,16 @@ package br.com.caelum.agiletickets.domain.precos;
 import java.math.BigDecimal;
 
 
-public class PrecoCinemaEShow {
+public class PrecoCinemaEShow implements Preco{
 	
-	public BigDecimal calculaPrecoCinemaEShow(Integer totalIngressos, Integer ingressosReservados) {
+	public BigDecimal calcula(Integer totalIngressos, Integer ingressosReservados) {
+		
+		return calcula(totalIngressos,ingressosReservados,null);
+	}
+
+	@Override
+	public BigDecimal calcula(Integer totalIngressos,
+			Integer ingressosReservados, Integer duracao) {
 		BigDecimal preco = null;
 		//quando estiver acabando os ingressos... 
 		if((totalIngressos - ingressosReservados) / totalIngressos.doubleValue() <= 0.05) { 
