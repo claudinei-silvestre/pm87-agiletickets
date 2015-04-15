@@ -102,14 +102,8 @@ public class Espetaculo {
 		// ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
 	public List<Sessao> criaSessoes(DateTime inicio, DateTime fim, LocalTime horario, Periodicidade periodicidade) {
 		Days daysBetween = Days.daysBetween(inicio, fim);
-		int offset = 0;
 		
-		if(periodicidade.equals(Periodicidade.DIARIA))
-			offset = 1;
-		if(periodicidade.equals(Periodicidade.SEMANAL))
-			offset = 7;
-		
-		for(int x = 0; x<= daysBetween.getDays();x+=offset){
+		for(int x = 0; x<= daysBetween.getDays();x+=periodicidade.getOffset()){
 			Sessao sessao = new Sessao();
 			sessao.setInicio(inicio.plusDays(x));
 			sessao.setTotalIngressos(100);
