@@ -110,19 +110,35 @@ public class Sessao {
 	}
 
 	public BigDecimal getPreco() {
+		if(espetaculo.getTipo().equals(TipoDeEspetaculo.CINEMA) || espetaculo.getTipo().equals(TipoDeEspetaculo.SHOW)) {
+			preco = calculaPrecoCinemaEShow();
+		} else if(espetaculo.getTipo().equals(TipoDeEspetaculo.BALLET) || espetaculo.getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
+			preco = calculaPrecoBalletEOrquestra();
+		}  
 		return preco;
 	}
 
-	public static BigDecimal calculaPrecoBalletEOrquestra(Sessao sessao) {
+	public  BigDecimal calculaPrecoCinemaEShow() {
 		BigDecimal preco;
-		if((sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue() <= 0.50) { 
-			preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
+		//quando estiver acabando os ingressos... 
+		if((this.getTotalIngressos() - this.getIngressosReservados()) / this.getTotalIngressos().doubleValue() <= 0.05) { 
+			preco = this.preco.add(this.preco.multiply(BigDecimal.valueOf(0.10)));
 		} else {
-			preco = sessao.getPreco();
+			preco = this.preco;
+		}
+		return preco;
+	}
+
+	public  BigDecimal calculaPrecoBalletEOrquestra() {
+		BigDecimal preco;
+		if((this.getTotalIngressos() - this.getIngressosReservados()) / this.getTotalIngressos().doubleValue() <= 0.50) { 
+			preco = this.preco.add(this.preco.multiply(BigDecimal.valueOf(0.20)));
+		} else {
+			preco = this.preco;
 		}
 		
-		if(sessao.getDuracaoEmMinutos() > 60){
-			preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
+		if(this.getDuracaoEmMinutos() > 60){
+			preco = preco.add(this.preco.multiply(BigDecimal.valueOf(0.10)));
 		}
 		return preco;
 	}
