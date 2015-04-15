@@ -19,11 +19,7 @@ public class CalculadoraDePrecos {
 	}
 
 	private static BigDecimal calculaPreco(Sessao sessao, Espetaculo espetaculo) {
-		BigDecimal preco;
-	
-		preco = sessao.getPreco();
-	
-		return preco;
+		return sessao.getPreco();
 	}
 
 }
