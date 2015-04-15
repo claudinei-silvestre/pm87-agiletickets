@@ -13,6 +13,9 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import br.com.caelum.agiletickets.domain.precos.PrecoBalletEOrquestra;
+import br.com.caelum.agiletickets.domain.precos.PrecoCinemaEShow;
+
 @Entity
 public class Sessao {
 
@@ -111,36 +114,13 @@ public class Sessao {
 
 	public BigDecimal getPreco() {
 		if(espetaculo.getTipo().equals(TipoDeEspetaculo.CINEMA) || espetaculo.getTipo().equals(TipoDeEspetaculo.SHOW)) {
-			preco = calculaPrecoCinemaEShow();
+			preco =  new PrecoCinemaEShow().calcula(totalIngressos, ingressosReservados);
 		} else if(espetaculo.getTipo().equals(TipoDeEspetaculo.BALLET) || espetaculo.getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
-			preco = calculaPrecoBalletEOrquestra();
+			preco = new PrecoBalletEOrquestra().calcula(totalIngressos, ingressosReservados, duracaoEmMinutos);
 		}  
 		return preco;
 	}
 
-	public  BigDecimal calculaPrecoCinemaEShow() {
-		BigDecimal preco;
-		//quando estiver acabando os ingressos... 
-		if((this.getTotalIngressos() - this.getIngressosReservados()) / this.getTotalIngressos().doubleValue() <= 0.05) { 
-			preco = this.preco.add(this.preco.multiply(BigDecimal.valueOf(0.10)));
-		} else {
-			preco = this.preco;
-		}
-		return preco;
-	}
-
-	public  BigDecimal calculaPrecoBalletEOrquestra() {
-		BigDecimal preco;
-		if((this.getTotalIngressos() - this.getIngressosReservados()) / this.getTotalIngressos().doubleValue() <= 0.50) { 
-			preco = this.preco.add(this.preco.multiply(BigDecimal.valueOf(0.20)));
-		} else {
-			preco = this.preco;
-		}
-		
-		if(this.getDuracaoEmMinutos() > 60){
-			preco = preco.add(this.preco.multiply(BigDecimal.valueOf(0.10)));
-		}
-		return preco;
-	}
+	
 
 }
